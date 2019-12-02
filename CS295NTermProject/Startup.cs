@@ -62,6 +62,10 @@ namespace CS295NTermProject
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
+                // default route for non-areas
+                routes.MapRoute(
+                    name: "default",
+                    template: "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }

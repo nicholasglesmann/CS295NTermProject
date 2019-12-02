@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Mvc;
 using CS295NTermProject.Models;
 using CS295NTermProject.Repositories;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
 using MimeKit;
 using System.IO;
 
@@ -17,11 +16,11 @@ namespace CS295NTermProject.Controllers
     {
         private readonly IHostingEnvironment _hostingEnvironment;
 
-        IMusicRepository musicTracks;
+        IMusicRepository musicRepo;
 
         public HomeController(IMusicRepository music, IHostingEnvironment hostingEnvironment)
         {
-            musicTracks = music;
+            musicRepo = music;
             _hostingEnvironment = hostingEnvironment;
         }
 
@@ -32,8 +31,35 @@ namespace CS295NTermProject.Controllers
 
         public IActionResult Music()
         {
-            List<MusicTrack> music = musicTracks.MusicTracks;
-            return View(music);
+            // get the list of moods and store it in viewdata for music view
+            ViewData["allMoods"] = musicRepo.MoodList;
+            ViewData["allInstruments"] = musicRepo.InstrumentList;
+            ViewData["allGenres"] = musicRepo.GenreList;
+
+            List<MusicTrack> currentMusicTracks = musicRepo.MusicTracks;
+
+            if(musicRepo.CurrentMood != "")
+            {
+                currentMusicTracks = musicRepo.GetMusicTracksByMood(currentMusicTracks, musicRepo.CurrentMood);
+            }
+
+            if(musicRepo.CurrentInstrument != "")
+            {
+                currentMusicTracks = musicRepo.GetMusicTracksByInstrument(currentMusicTracks, musicRepo.CurrentInstrument);
+            }
+
+            if(musicRepo.CurrentGenre != "")
+            {
+                currentMusicTracks = musicRepo.GetMusicTracksByGenre(currentMusicTracks, musicRepo.CurrentGenre);
+            }
+
+            ViewBag.currentMood = musicRepo.CurrentMood;
+
+            ViewBag.currentInstrument = musicRepo.CurrentInstrument;
+
+            ViewBag.currentGenre = musicRepo.CurrentGenre;
+
+            return View(currentMusicTracks);
         }
 
         public IActionResult About()
@@ -44,6 +70,32 @@ namespace CS295NTermProject.Controllers
         public IActionResult ContactUs()
         {
             return View();
+        }
+
+        public RedirectToActionResult MoodSelected(string id)
+        {
+            musicRepo.CurrentMood = id;
+            return RedirectToAction("Music");
+        }
+
+        public RedirectToActionResult InstrumentSelected(string id)
+        {
+            musicRepo.CurrentInstrument = id;
+            return RedirectToAction("Music");
+        }
+
+        public RedirectToActionResult GenreSelected(string id)
+        {
+            musicRepo.CurrentGenre = id;
+            return RedirectToAction("Music");
+        }
+
+        public RedirectToActionResult ClearFilters()
+        {
+            musicRepo.CurrentMood = "";
+            musicRepo.CurrentInstrument = "";
+            musicRepo.CurrentGenre = "";
+            return RedirectToAction("Music");
         }
 
         [HttpPost]

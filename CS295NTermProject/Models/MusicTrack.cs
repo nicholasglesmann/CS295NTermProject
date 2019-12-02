@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -7,7 +8,10 @@ namespace CS295NTermProject.Models
 {
     public class MusicTrack
     {
-        public MusicTrack(string name, string genre, string fileName, List<string> moods, List<string> instruments, List<string> tags)
+        [Key]
+        public int MusicTrackID { get; set; }
+
+        public MusicTrack(string name, GenreTag genre, string fileName, List<ITag> moods, List<ITag> instruments, List<ITag> tags)
         {
             Name = name;
             Genre = genre;
@@ -17,11 +21,11 @@ namespace CS295NTermProject.Models
             this.tags = tags;
         }
 
-        private List<string> moods = new List<string>();
+        private List<ITag> moods = new List<ITag>();
 
-        private List<string> instruments = new List<string>();
+        private List<ITag> instruments = new List<ITag>();
 
-        private List<string> tags = new List<string>();
+        private List<ITag> tags = new List<ITag>();
 
         private List<Comment> comments = new List<Comment>();
 
@@ -29,15 +33,15 @@ namespace CS295NTermProject.Models
 
         public string Name { get; set; }
 
-        public string Genre { get; set; }
+        public GenreTag Genre { get; set; }
 
         public string FileName { get; set; }
 
-        public List<string> Moods { get { return moods; } }
+        public List<ITag> Moods { get { return moods; } }
 
-        public List<string> Instruments { get { return instruments; } }
+        public List<ITag> Instruments { get { return instruments; } }
 
-        public List<string> Tags { get { return tags; } }
+        public List<ITag> Tags { get { return tags; } }
 
         public List<Comment> Comments { get { return comments; } }
 

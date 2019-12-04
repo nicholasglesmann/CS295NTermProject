@@ -88,8 +88,7 @@ namespace CS295NTermProject.Controllers
         {
             var collection = formCollection;
 
-            GenreTag genreTag = new GenreTag();
-            genreTag.Tag = collection["genre"];
+            GenreTag genreTag = musicRepo.GetGenreTagFromDataBase(collection["genre"]);
 
             MusicTrack song = new MusicTrack();
             song.Name = songName;
@@ -105,8 +104,7 @@ namespace CS295NTermProject.Controllers
                 string value = collection[mood];
                 if (value != null)
                 {
-                    MoodTag moodTag = new MoodTag();
-                    moodTag.Tag = value;
+                    MoodTag moodTag = musicRepo.GetMoodTagFromDatabase(value);
                     song.Moods.Add(moodTag);
 
                     var m = new MusicTrackMoodTag();
@@ -119,8 +117,7 @@ namespace CS295NTermProject.Controllers
                 value = collection[instrument];
                 if (value != null)
                 {
-                    InstrumentTag instrumentTag = new InstrumentTag();
-                    instrumentTag.Tag = value;
+                    InstrumentTag instrumentTag = musicRepo.GetInstrumentTagFromDatabase(value);
                     song.Instruments.Add(instrumentTag);
 
                     var m = new MusicTrackInstrumentTag();

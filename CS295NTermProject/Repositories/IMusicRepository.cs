@@ -22,5 +22,9 @@ namespace CS295NTermProject.Repositories
         List<MusicTrack> GetMusicTracksByMood(List<MusicTrack> tracks, string moodSelect);
         List<MusicTrack> GetMusicTracksByInstrument(List<MusicTrack> tracks, string instrumentSelect);
         List<MusicTrack> GetMusicTracksByGenre(List<MusicTrack> tracks, string genreSelect);
+
+        GenreTag GetGenreTagFromDataBase(string genre);
+        MoodTag GetMoodTagFromDatabase(string mood);
+        InstrumentTag GetInstrumentTagFromDatabase(string instrument);
     }
 }

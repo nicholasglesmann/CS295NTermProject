@@ -120,3 +120,15 @@ input[type=checkbox] {
     -o-transform: scale(1.5); /* Opera */
     margin-top: 7px;
 }
+
+@media (min-width: 576px) {
+    #big-logo {
+        min-height: 75px;
+    }
+}
+
+@media (min-width: 768px) {
+    #big-logo {
+        min-height: 115px;
+    }
+}

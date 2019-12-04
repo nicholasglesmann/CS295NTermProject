@@ -217,5 +217,20 @@ namespace CS295NTermProject.Repositories
             song.AddTags(tags);
             AddMusicTrack(song);
         }
+
+        public GenreTag GetGenreTagFromDataBase(string genre)
+        {
+            throw new NotImplementedException();
+        }
+
+        public MoodTag GetMoodTagFromDatabase(string mood)
+        {
+            throw new NotImplementedException();
+        }
+
+        public InstrumentTag GetInstrumentTagFromDatabase(string instrument)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

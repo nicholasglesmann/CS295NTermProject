@@ -121,5 +121,20 @@ namespace CS295NTermProject.Repositories
             List<MusicTrack> musicTrackByGenre = (List<MusicTrack>)tracks.Where(m => m.Genre.Tag == genreSelect).ToList();
             return musicTrackByGenre;
         }
+
+        public GenreTag GetGenreTagFromDataBase(string genre)
+        {
+            return context.GenreTags.First(g => g.Tag == genre);
+        }
+
+        public MoodTag GetMoodTagFromDatabase(string mood)
+        {
+            return context.MoodTags.First(m => m.Tag == mood);
+        }
+
+        public InstrumentTag GetInstrumentTagFromDatabase(string instrument)
+        {
+            return context.InstrumentTags.First(i => i.Tag == instrument);
+        }
     }
 }

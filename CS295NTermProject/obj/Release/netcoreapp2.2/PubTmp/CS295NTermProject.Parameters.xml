@@ -3,4 +3,7 @@
   <parameter name="IIS Web Application Name" description="" value="stockmusicmasters.com" tags="IisApp">
     <parameterEntry kind="ProviderPath" scope="IisApp" match="^D:\\295N\\CS295NTermProject\\CS295NTermProject\\obj\\Release\\netcoreapp2\.2\\PubTmp\\Out\\$" />
   </parameter>
+  <parameter name="CS295NTermProject.Repositories.AppDbContext" description="" value="Data Source=.\MSSQLSERVER2017;Initial Catalog=StockMusicMastersDB;User Id=nicholasglesmann;Password=C0mput3r12081988;" tags="dbfullsql">
+    <parameterEntry kind="ProviderPath" scope="dbfullsql" match="^D:\\295N\\CS295NTermProject\\CS295NTermProject\\obj\\Release\\netcoreapp2\.2\\PubTmp\\EFSQLScripts\\CS295NTermProject\.Repositories\.AppDbContext\.sql$" />
+  </parameter>
 </parameters>

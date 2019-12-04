@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using CS295NTermProject.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace CS295NTermProject
 {
@@ -35,12 +36,14 @@ namespace CS295NTermProject
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
+            services.AddDbContext<AppDbContext>(options => options.UseSqlServer(Configuration["ConnectionStrings:DefaultConnection"]));
+
             // Inject the music repository
-            services.AddTransient<IMusicRepository, FakeMusicRepository>();
+            services.AddTransient<IMusicRepository, MusicRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, AppDbContext context)
         {
             if (env.IsDevelopment())
             {
@@ -59,14 +62,21 @@ namespace CS295NTermProject
 
             app.UseMvc(routes =>
             {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                //routes.MapRoute(
+                //    name: "default",
+                //    template: "{controller=Home}/{action=Index}/{id?}");
+
                 // default route for non-areas
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            // Apply migration
+            context.Database.Migrate();
+
+            // Seed the database
+            SeedData.Seed(app);
         }
     }
 }

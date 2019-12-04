@@ -2,9 +2,9 @@
 
 @{
     ViewData["Title"] = "Music";
-    var allMoods = (List<string>)ViewData["allMoods"];
-    var allInstruments = (List<string>)ViewData["allInstruments"];
-    var allGenres = (List<string>)ViewData["allGenres"];
+    var allMoods = (List<MoodTag>)ViewData["allMoods"];
+    var allInstruments = (List<InstrumentTag>)ViewData["allInstruments"];
+    var allGenres = (List<GenreTag>)ViewData["allGenres"];
     string moodButton = "Moods";
     string instrumentButton = "Instruments";
     string genreButton = "Genre";
@@ -14,7 +14,7 @@
 }
 <h1 class="my-4">Music</h1>
 <div class="container jumbotron py-3 mb-0">
-    <h2 class="display-3 font-weight-normal text-center">Music</h2>
+    <h2 class="display-3 text-dark font-weight-normal text-center">Music</h2>
 </div>
 <div class="tag-container">
     <div class="container card my-3">
@@ -30,9 +30,9 @@
                         @genreButton
                     </button>
                     <div aria-labelledby="dropdownGenre" class="dropdown-menu music-dropdown">
-                        @foreach (string genre in allGenres)
+                        @foreach (GenreTag genre in allGenres)
                         {
-                            @if (genre == ViewBag.currentGenre)
+                            @if (genre.Tag == ViewBag.currentGenre)
                             {
                                 currentGenre = "active";
                             }
@@ -40,7 +40,7 @@
                             {
                                 currentGenre = "";
                             }
-                            <a class="dropdown-item py-0 @currentGenre" asp-controller="Home" asp-action="GenreSelected" asp-route-id="@genre">@genre</a>
+                            <a class="dropdown-item py-0 @currentGenre" asp-controller="Home" asp-action="GenreSelected" asp-route-id="@genre.Tag">@genre.Tag</a>
                         }
                     </div>
                 </div>
@@ -56,9 +56,9 @@
                         @moodButton
                     </button>
                     <div aria-labelledby="dropdownMenu2" class="dropdown-menu music-dropdown mt-5">
-                        @foreach (string mood in allMoods)
+                        @foreach (MoodTag mood in allMoods)
                         {
-                            @if (mood == ViewBag.currentMood)
+                            @if (mood.Tag == ViewBag.currentMood)
                             {
                                 currentMood = "active";
                             }
@@ -66,7 +66,7 @@
                             {
                                 currentMood = "";
                             }
-                            <a class="dropdown-item py-0 @currentMood" asp-controller="Home" asp-action="MoodSelected" asp-route-id="@mood">@mood</a>
+                            <a class="dropdown-item py-0 @currentMood" asp-controller="Home" asp-action="MoodSelected" asp-route-id="@mood.Tag">@mood.Tag</a>
                         }
                     </div>
                 </div>
@@ -82,9 +82,9 @@
                         @instrumentButton
                     </button>
                     <div aria-labelledby="dropdownInstruments" class="dropdown-menu music-dropdown">
-                        @foreach (string instrument in allInstruments)
+                        @foreach (InstrumentTag instrument in allInstruments)
                         {
-                            @if (instrument == ViewBag.currentInstrument)
+                            @if (instrument.Tag == ViewBag.currentInstrument)
                             {
                                 currentInstrument = "active";
                             }
@@ -92,7 +92,7 @@
                             {
                                 currentInstrument = "";
                             }
-                            <a class="dropdown-item py-0 @currentInstrument" asp-controller="Home" asp-action="InstrumentSelected" asp-route-id="@instrument">@instrument</a>
+                            <a class="dropdown-item py-0 @currentInstrument" asp-controller="Home" asp-action="InstrumentSelected" asp-route-id="@instrument.Tag">@instrument.Tag</a>
                         }
                     </div>
                 </div>

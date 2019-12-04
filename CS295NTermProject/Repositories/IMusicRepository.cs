@@ -13,9 +13,10 @@ namespace CS295NTermProject.Repositories
         string CurrentMood { get; set; }
         string CurrentInstrument { get; set; }
         string CurrentGenre { get; set; }
-        List<string> MoodList { get; }
-        List<string> InstrumentList { get; }
-        List<string> GenreList { get; }
+        List<MoodTag> MoodList { get; }
+        List<InstrumentTag> InstrumentList { get; }
+        List<GenreTag> GenreList { get; }
+        void SaveSongToDatabase(MusicTrack musicTrack);
         void AddMusicTrack(MusicTrack musicTrack);
         MusicTrack GetMusicTrackByName(string name);
         List<MusicTrack> GetMusicTracksByMood(List<MusicTrack> tracks, string moodSelect);

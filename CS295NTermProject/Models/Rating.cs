@@ -7,7 +7,8 @@ namespace CS295NTermProject.Models
 {
     public class Rating
     {
-        public int RatingValue { get; set; }
+        public int RatingID { get; set; }
 
+        public int RatingValue { get; set; }
     }
 }

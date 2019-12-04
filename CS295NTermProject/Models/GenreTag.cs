@@ -11,11 +11,7 @@ namespace CS295NTermProject.Models
         [Key]
         public int GenreTagID { get; set; }
 
-        public GenreTag(string genre)
-        {
-            Tag = genre;
-        }
-
         public string Tag { get; set; }
+
     }
 }

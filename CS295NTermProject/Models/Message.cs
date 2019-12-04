@@ -7,6 +7,8 @@ namespace CS295NTermProject.Models
 {
     public class Message
     {
+        public int MessageID { get; set; }
+
         // properties
         public string Name { get; set; }
 

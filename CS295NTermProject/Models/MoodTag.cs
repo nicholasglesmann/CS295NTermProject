@@ -9,13 +9,10 @@ namespace CS295NTermProject.Models
     public class MoodTag : ITag
     {
         [Key]
-        public int MoodTagID { get; set; }
-
-        public MoodTag(string mood)
-        {
-            Tag = mood;
-        }
+        public int ID { get; set; }
 
         public string Tag { get; set; }
+
+        public virtual ICollection<MusicTrackMoodTag> MusicTrackMoodTags { get; set; }
     }
 }

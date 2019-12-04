@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CS295NTermProject.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace CS295NTermProject.Repositories
 {
     public class MusicRepository : IMusicRepository
     {
+        private AppDbContext context;
+
         private static List<MusicTrack> musicTracks = new List<MusicTrack>();
 
         public List<MusicTrack> MusicTracks { get { return musicTracks; } }
@@ -16,17 +19,17 @@ namespace CS295NTermProject.Repositories
 
         public List<MusicTrack> CurrentMusicTracks { get { return currentMusicTracks; } set { currentMusicTracks = value; } }
 
-        private static List<string> moodList = new List<string>();
+        private static List<MoodTag> moodList = new List<MoodTag>();
 
-        public List<string> MoodList { get { return moodList; } }
+        public List<MoodTag> MoodList { get { return moodList; } }
 
-        private static List<string> instrumentList = new List<string>();
+        private static List<InstrumentTag> instrumentList = new List<InstrumentTag>();
 
-        public List<string> InstrumentList { get { return instrumentList; } }
+        public List<InstrumentTag> InstrumentList { get { return instrumentList; } }
 
-        private static List<string> genreList = new List<string>();
+        private static List<GenreTag> genreList = new List<GenreTag>();
 
-        public List<string> GenreList { get { return genreList; } }
+        public List<GenreTag> GenreList { get { return genreList; } }
 
         private static string currentMood = "";
 
@@ -40,12 +43,54 @@ namespace CS295NTermProject.Repositories
 
         public string CurrentGenre { get { return currentGenre; } set { currentGenre = value; } }
 
-        public MusicRepository()
+        public MusicRepository(AppDbContext context)
         {
+            this.context = context;
+
+            // If MusicTracks is empty, load all data from DB
             if (MusicTracks.Count == 0)
             {
-                //AddSeedData();
+                // load genre/instrument/mood/musicTrack list from db
+                genreList.AddRange(context.GenreTags.OrderBy(g => g.Tag).ToList());
+
+                // THE FAST WAY
+                moodList.AddRange(context.MoodTags.OrderBy(m => m.Tag).ToList());
+
+                // THE SLOW WAY
+                //List<MoodTag> allMoodTags = context.MoodTags.ToList();
+
+                //foreach (MoodTag mt in allMoodTags)
+                //{
+                //    moodList.Add(mt.Tag);
+                //}
+
+                //moodList.Sort();
+
+                instrumentList.AddRange(context.InstrumentTags.OrderBy(i => i.Tag).ToList());
+
+                musicTracks = context.MusicTracks.Include(m => m.Genre).Include(x => x.MusicTrackMoodTags).Include(x => x.MusicTrackInstrumentTags).ToList();
+
+                foreach (MusicTrack musicTrack in musicTracks)
+                {
+
+                    foreach (MusicTrackMoodTag mt in musicTrack.MusicTrackMoodTags)
+                    {
+                        musicTrack.Moods.Add(MoodList.First(m => m.ID == mt.MoodTagID));
+                    }
+
+                    foreach (MusicTrackInstrumentTag it in musicTrack.MusicTrackInstrumentTags)
+                    {
+                        musicTrack.Instruments.Add(InstrumentList.First(m => m.ID == it.InstrumentTagID));
+                    }
+
+                }
             }
+        }
+
+        public void SaveSongToDatabase(MusicTrack musicTrack)
+        {
+            context.MusicTracks.Add(musicTrack);
+            context.SaveChanges();
         }
 
         public void AddMusicTrack(MusicTrack musicTrack)

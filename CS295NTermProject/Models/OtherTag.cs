@@ -9,13 +9,10 @@ namespace CS295NTermProject.Models
     public class OtherTag : ITag
     {
         [Key]
-        public int OtherTagID { get; set; }
-
-        public OtherTag(string tag)
-        {
-            Tag = tag;
-        }
+        public int ID { get; set; }
 
         public string Tag { get; set; }
+
+        public virtual ICollection<MusicTrackOtherTag> MusicTrackOtherTags { get; set; }
     }
 }

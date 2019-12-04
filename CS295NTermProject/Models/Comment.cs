@@ -7,6 +7,8 @@ namespace CS295NTermProject.Models
 {
     public class Comment
     {
+        public int CommentID { get; set; }
+
         public string CommentText { get; set; }
 
     }

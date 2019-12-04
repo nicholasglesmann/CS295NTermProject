@@ -9,6 +9,7 @@ using CS295NTermProject.Repositories;
 using Microsoft.AspNetCore.Hosting;
 using MimeKit;
 using System.IO;
+using Microsoft.AspNetCore.Http;
 
 namespace CS295NTermProject.Controllers
 {
@@ -70,6 +71,70 @@ namespace CS295NTermProject.Controllers
         public IActionResult ContactUs()
         {
             return View();
+        }
+
+        public IActionResult AddSong()
+        {
+            // get the list of moods and store it in viewdata for music view
+            ViewData["allMoods"] = musicRepo.MoodList;
+            ViewData["allInstruments"] = musicRepo.InstrumentList;
+            ViewData["allGenres"] = musicRepo.GenreList;
+
+            return View();
+        }
+
+        [HttpPost]
+        public RedirectToActionResult AddSong(IFormCollection formCollection, string songName, string fileName)
+        {
+            var collection = formCollection;
+
+            GenreTag genreTag = new GenreTag();
+            genreTag.Tag = collection["genre"];
+
+            MusicTrack song = new MusicTrack();
+            song.Name = songName;
+            song.Genre = genreTag;
+            song.FileName = fileName;
+
+
+
+            List<MoodTag> moodTags = new List<MoodTag>();
+            for(int i = 0; i <= musicRepo.MoodList.Count; i++)
+            {
+                string mood = "mood" + i.ToString();
+                string value = collection[mood];
+                if (value != null)
+                {
+                    MoodTag moodTag = new MoodTag();
+                    moodTag.Tag = value;
+                    song.Moods.Add(moodTag);
+
+                    var m = new MusicTrackMoodTag();
+                    m.MusicTrack = song;
+                    m.MoodTag = moodTag;
+                    song.MusicTrackMoodTags.Add(m);
+                }
+
+                string instrument = "instrument" + i.ToString();
+                value = collection[instrument];
+                if (value != null)
+                {
+                    InstrumentTag instrumentTag = new InstrumentTag();
+                    instrumentTag.Tag = value;
+                    song.Instruments.Add(instrumentTag);
+
+                    var m = new MusicTrackInstrumentTag();
+                    m.MusicTrack = song;
+                    m.InstrumentTag = instrumentTag;
+                    song.MusicTrackInstrumentTags.Add(m);
+                }
+            }
+
+            musicRepo.MusicTracks.Add(song);
+
+            musicRepo.SaveSongToDatabase(song);
+
+            return RedirectToAction("Music");
         }
 
         public RedirectToActionResult MoodSelected(string id)

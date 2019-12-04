@@ -31,3 +31,4 @@ D:\295N\CS295NTermProject\CS295NTermProject\obj\Debug\netcoreapp2.2\Razor\Views\
 D:\295N\CS295NTermProject\CS295NTermProject\obj\Debug\netcoreapp2.2\Razor\Views\Home\ContactUs.g.cshtml.cs
 D:\295N\CS295NTermProject\CS295NTermProject\obj\Debug\netcoreapp2.2\Razor\Views\Home\ContactUsResponse.g.cshtml.cs
 D:\295N\CS295NTermProject\CS295NTermProject\obj\Debug\netcoreapp2.2\CS295NTermProject.csprojAssemblyReference.cache
+D:\295N\CS295NTermProject\CS295NTermProject\obj\Debug\netcoreapp2.2\Razor\Views\Home\AddSong.g.cshtml.cs

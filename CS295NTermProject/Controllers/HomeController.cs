@@ -27,6 +27,15 @@ namespace CS295NTermProject.Controllers
 
         public IActionResult Index()
         {
+            // get the list of moods and store it in viewdata for music view
+            ViewData["allMoods"] = musicRepo.MoodList;
+            ViewData["allInstruments"] = musicRepo.InstrumentList;
+            ViewData["allGenres"] = musicRepo.GenreList;
+
+            musicRepo.CurrentMood = "";
+            musicRepo.CurrentInstrument = "";
+            musicRepo.CurrentGenre = "";
+
             return View();
         }
 

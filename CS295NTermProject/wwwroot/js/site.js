@@ -2,6 +2,6 @@
 // for details on configuring this project to bundle and minify static web assets.
 
 // Write your JavaScript code.
-//$(document).ready(function () {
-//    $('#logo').attr('src', '/files/images/smmlogo.svg');
-//});
+$(document).ready(function () {
+    $('#small-logo').removeClass('d-none');
+});

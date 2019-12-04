@@ -132,3 +132,15 @@ input[type=checkbox] {
         min-height: 115px;
     }
 }
+
+@media (max-width: 760px) {
+    #front-page-tagline {
+        font-size: 1.5em;
+    }
+}
+
+@media (max-width: 491px) {
+    #front-page-tagline {
+        font-size: 1.25em;
+    }
+}

@@ -21,8 +21,8 @@
     <header>
         <nav class="navbar navbar-dark navbar-expand-sm navbar-toggleable-sm bg-dark box-shadow fixed-top mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
-                    <img id="logo" src="" width="225" height="47" class="d-inline-block align-top" alt="">
+                <a class="navbar-brand d-none" id="small-logo" asp-area="" asp-controller="Home" asp-action="Index">
+                    <img id="logo" src="~/files/images/smmlogo.svg" width="225" height="47" class="d-inline-block align-top" alt="">
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
@@ -31,10 +31,10 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <ul class="navbar-nav justify-content-end flex-grow-1">
                         <li class="nav-item text-right">
-                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Music">Music</a>
                         </li>
                         <li class="nav-item text-right">
-                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Music">Music</a>
+                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="AddSong">Add Song</a>
                         </li>
                         <li class="nav-item text-right">
                             <a class="nav-link text-light" asp-controller="Home" asp-action="About">About</a>

@@ -1,5 +1,6 @@
 ﻿$(document).ready(function () {
     // Transition effect for navbar 
+    $('#small-logo').addClass('d-none');
     $('.navbar').removeClass('bg-dark');
     $('.navbar').removeClass('box-shadow');
     $(window).scroll(function () {
